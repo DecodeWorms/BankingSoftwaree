@@ -112,7 +112,7 @@ func (control Controller) Withdraw(db *sql.DB) http.HandlerFunc {
 		row.Scan(&theBalance.Transaction_id, &theBalance.Balance)
 
 		if theBalance.Balance != 0 && theBalance.Balance > theTransaction.Amount {
-			// fmt.Println(theBalance.Balance,theTransaction.Amount)
+
 			num, err := db.Exec("update balance set balance = $1, date = $2 where transaction_id = $3", theBalance.Balance-theTransaction.Amount, theTransaction.Date, theBalance.Transaction_id)
 
 			if err != nil {
@@ -138,7 +138,7 @@ func (control Controller) Balance(db *sql.DB) http.HandlerFunc {
 		var theCustomer customermodel.Customer
 		json.NewDecoder(r.Body).Decode(&theCustomer)
 
-		// var accountNumber = mux.Vars(r)
+
 
 		var theCustomerResult customermodel.Customer
 
